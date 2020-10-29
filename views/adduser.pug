@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h2.my-4.text-center Add Artist
+  
+  .container
+    form(action="/users", method="post")
+      .card
+        .card-body
+          .row
+            .col-md-6.form-group
+              label(for="firstName") First Name
+              input#firstName.form-control(type="text" name="firstName" required)
+            .col-md-6.form-group
+              label(for="lastName") Last Name
+              input#lastName.form-control(type="text" name="lastName" required)
+            .col-md-6.form-group
+              label(for="email") Email
+              input#email.form-control(type="email" name="email" required)
+            .col-md-6.form-group
+              label(for="phone") Phone
+              input#phone.form-control(type="text" name="phone")
+            .col-md-12.form-group
+              label(for="address") Address
+              textarea#address.form-control(type="text" name="address")
+            .col-md-6.form-group
+              label(for="password") Password
+              input#password.form-control(type="text" name="password" required)
+          .row
+            .col-md-3.mx-auto.mt-3
+              button.btn-block.btn.btn-success Submit

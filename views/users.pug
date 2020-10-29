@@ -1,0 +1,58 @@
+extends layout
+
+block content
+  h2.my-4.text-center Artists
+  
+  .container
+    .row
+      .col.mb-3.text-right
+        a.btn.btn-success(href="/users/add") Add Artist
+    .row
+      .col.my-3
+        include includes/messages
+    .row
+      .col
+        table.table
+          thead
+            tr
+              th Name
+              th Email
+              th Phone
+              th Joined
+              th Actions
+          tbody
+            each user in users
+              tr
+                td=user.fullName
+                td=user.email
+                td=user.profile.phone
+                td.date-cell=user.createdAt
+                td
+                  a.text-danger.btn-delete(href=`/users/delete/${user._id}`, title="Delete Artist")
+                    fa.fas.fa-trash
+                  a.text-primary.ml-3(href=`/users/edit/${user._id}`, title="Edit Artist")
+                    fa.fas.fa-edit
+
+block customscripts
+  script.
+    $('.date-cell').each(function (index, element) {
+      $(element).text(moment($(element).text()).format('MM/DD/YYYY HH:mm'))
+    });
+
+    $(document).ready(function () {
+      $('.btn-delete').on('click', function (e) {
+        e.preventDefault();
+        var deleteURL = $(this).attr("href");
+        swal.fire({
+          title: "Are you sure?",
+          text: "You will not be able to recover this Artist!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, delete it!",
+        }).then(function (result) {
+          if (result.value) {
+            window.location.href = deleteURL;
+          }
+        })
+      });
+    });
